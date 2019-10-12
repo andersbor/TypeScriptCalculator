@@ -1,12 +1,40 @@
-interface Person {
-    firstName: string;
-    lastName: string;
+let calculateButon: HTMLButtonElement = <HTMLButtonElement>document.getElementById("calculateButton");
+calculateButon.addEventListener("click", calculate);
+
+function calculate(): void {
+    let input1: HTMLInputElement = <HTMLInputElement>document.getElementById("number1");
+    let input2: HTMLInputElement = <HTMLInputElement>document.getElementById("number2");
+    let number1Str = input1.value;
+    let number2Str = input2.value;
+
+    let number1 = Number(number1Str);
+    let number2 = Number(number2Str);
+
+    let operationElement: HTMLSelectElement = <HTMLSelectElement>document.getElementById("operation");
+    let operation: string = operationElement.value;
+    let result: number = 0;
+    result = calc(operation, number1, number2);
+    //let result: number = number1 + number2;
+
+    let resultElement: HTMLSpanElement = <HTMLSpanElement>document.getElementById("result");
+    resultElement.innerHTML = String(result);
 }
 
-function greeter(person: Person): string {
-    return "Hello, " + person.firstName + " " + person.lastName;
+function calc(operation: string, number1: number, number2: number): number {
+    let result: number = 0;
+    switch (operation) {
+        case "+":
+            result = number1 + number2;
+            break;
+        case "-":
+            result = number1 - number2;
+            break;
+        case "*":
+            result = number1 * number2;
+            break;
+        case "/":
+            result = number1 / number2;
+            break;
+    }
+    return result;
 }
-let user: Person = { firstName: "John", lastName: "Doe" };
-
-let element: HTMLDivElement = <HTMLDivElement> document.getElementById("content");
-element.innerHTML = greeter(user);
